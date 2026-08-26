@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TryHackMe Activity Exporter</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #0f1626;
+        color: #e6edf3;
+        min-height: 100vh;
+        padding: 2rem;
+        line-height: 1.6;
+    }
+    .container { max-width: 760px; margin: 0 auto; }
+    h1 { color: #00ff88; font-size: 1.6rem; margin-bottom: 0.25rem; }
+    .subtitle { color: #8b98a9; margin-bottom: 2rem; }
+    .card {
+        background: #161c2e;
+        border: 1px solid #232a3d;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    h2 { color: #00ff88; font-size: 1.1rem; margin-bottom: 1rem; }
+    ol, ul { padding-left: 1.3rem; }
+    li { margin-bottom: 0.5rem; }
+    code {
+        background: #0f1626;
+        border: 1px solid #232a3d;
+        border-radius: 4px;
+        padding: 0.15rem 0.4rem;
+        font-size: 0.85rem;
+        color: #7dd3fc;
+        word-break: break-all;
+    }
+    .bookmarklet-box {
+        background: #0f1626;
+        border: 1px solid #00ff88;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        margin: 1rem 0;
+    }
+    .bookmarklet-btn {
+        display: inline-block;
+        background: #00ff88;
+        color: #0f1626;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        cursor: grab;
+    }
+    textarea {
+        width: 100%;
+        min-height: 180px;
+        background: #0f1626;
+        border: 1px solid #232a3d;
+        border-radius: 8px;
+        color: #e6edf3;
+        padding: 0.75rem;
+        font-family: "Courier New", monospace;
+        font-size: 0.8rem;
+        margin-top: 0.75rem;
+        resize: vertical;
+    }
+    button {
+        background: #00ff88;
+        color: #0f1626;
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 0.75rem;
+    }
+    button.secondary { background: #2d3a58; color: #fff; margin-left: 0.5rem; }
+    .note { font-size: 0.85rem; color: #8b98a9; }
+    .step { color: #00ff88; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>🎯 TryHackMe Activity Exporter</h1>
+    <p class="subtitle">Extract your <strong style="color:#e6edf3">real daily room activity</strong> into the exact JSON format your portfolio grid uses.</p>
+
+    <div class="card">
+        <h2>Step 1 — Add the bookmarklet</h2>
+        <p>Drag the green button below to your browser bookmarks bar.</p>
+        <div class="bookmarklet-box">
+            <a class="bookmarklet-btn" id="bookmarklet" href="javascript:void(0)">THM Export</a>
+        </div>
+        <p class="note">If the drag doesn't work, right-click the green button → copy link → create a bookmark manually and paste it.</p>
+    </div>
+
+    <div class="card">
+        <h2>Step 2 — Open your activity page</h2>
+        <ol>
+            <li>Log into <strong>TryHackMe</strong>.</li>
+            <li>Open: <code>https://tryhackme.com/p/sourabhnegi9837?tab=yearly-activity</code></li>
+            <li>Make sure the yearly heatmap is visible on screen (scroll if needed).</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>Step 3 — Click the bookmarklet</h2>
+        <ol>
+            <li>Click the <span class="step">THM Export</span> bookmark on the activity page.</li>
+            <li>The daily counts get collected and copied to your clipboard automatically.</li>
+            <li>Return here, click <strong>Paste</strong> below, then <strong>Copy JSON</strong>.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>Your extracted activity JSON</h2>
+        <div id="emptyState" style="color:#8b98a9;">Nothing yet — click the bookmarklet on your activity page to pull your real data.</div>
+        <textarea id="output" style="display:none;" spellcheck="false"></textarea>
+        <div>
+            <button id="pasteBtn" class="secondary">Paste from clipboard</button>
+            <button id="copyBtn" style="display:none;">Copy JSON</button>
+            <button id="clearBtn" class="secondary" style="display:none;">Clear</button>
+        </div>
+        <p class="note" style="margin-top:1rem;">Paste the copied JSON back to me (or drop it straight into the <code>activity</code> block of <code>tryhackme-data.json</code>) and the grid will render your real rooms-per-day.</p>
+    </div>
+</div>
+
+<script>
+// ---------- Bookmarklet source (runs on tryhackme.com) ----------
+function thmExporter() {
+    try {
+        var counts = {};
+        var found = 0;
+        var monthMap = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+
+        function pad(n) { return String(n).length < 2 ? '0' + n : '' + n; }
+        function monthToNum(m) {
+            var n = monthMap[m.toLowerCase().slice(0, 3)];
+            return n ? pad(n) : '';
+        }
+        function addCount(key, num) {
+            if (!key) return;
+            counts[key] = (counts[key] || 0) + (num || 0);
+            found++;
+        }
+        function parseMeta(el) {
+            var title = el.getAttribute('title') || '';
+            var aria = el.getAttribute('aria-label') || '';
+            var dataCount = el.getAttribute('data-count') || el.getAttribute('data-value') || el.getAttribute('data-rooms') || '';
+            var text = el.textContent || '';
+            var meta = [title, aria, text].join(' | ');
+
+            var key = '';
+            var d1 = meta.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+            if (d1) key = d1[1] + '-' + pad(d1[2]) + '-' + pad(d1[3]);
+            if (!key) {
+                var d2 = meta.match(/(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})/);
+                if (d2) {
+                    var m = monthToNum(d2[2]);
+                    if (m) key = d2[3] + '-' + m + '-' + pad(d2[1]);
+                }
+            }
+            if (!key) return;
+
+            var num = null;
+            var dc = dataCount.match(/-?\d+/);
+            if (dc) num = parseInt(dc[0], 10);
+            if (num === null) {
+                var nm = meta.match(/(\d+)\s*(?:room|room\(s\)|completed|solved|solve)/i);
+                if (nm) num = parseInt(nm[1], 10);
+            }
+            if (num === null) {
+                if (/no (?:contribution|rooms|activity)/i.test(meta)) num = 0;
+            }
+            if (num !== null) addCount(key, num);
+        }
+
+        var candidates = document.querySelectorAll('[data-count],[data-value],[data-rooms],[title],[aria-label]');
+        for (var i = 0; i < candidates.length; i++) {
+            parseMeta(candidates[i]);
+        }
+
+        Object.keys(counts).forEach(function (k) { if (counts[k] <= 0) delete counts[k]; });
+
+        var json = JSON.stringify(counts);
+        var total = Object.keys(counts).length;
+
+        var copied = false;
+        try {
+            var ta = document.createElement('textarea');
+            ta.value = json;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus(); ta.select();
+            copied = document.execCommand('copy');
+            document.body.removeChild(ta);
+        } catch (e) {}
+
+        if (total === 0) {
+            alert('TryHackMe Activity Export\n\nNo activity cells found. Open the yearly-activity tab and make sure the heatmap is visible. If the structure looks different, open DevTools and tell me the cell class/attributes.');
+        } else {
+            var w = window.open('', 'THMExport', 'width=560,height=420,scrollbars=yes');
+            if (w) {
+                w.document.write('<html><head><title>THM Activity JSON</title></head><body style="font-family:monospace;font-size:11px;margin:10px;">' +
+                    '<h4 style="margin:0 0 6px;">Collected ' + total + ' days ' + (copied ? '(copied to clipboard)' : '(copy below)') + '</h4>' +
+                    '<textarea style="width:100%;height:80%;" readonly>' + json.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</textarea>' +
+                    '<button onclick="document.querySelector(\'textarea\').select()">Select all</button></body></html>');
+                w.document.close();
+            } else {
+                alert('THM Export (' + total + ' days, ' + (copied ? 'copied' : 'see below') + '):\n\n' + json);
+            }
+        }
+    } catch (e) {
+        alert('THM Export error: ' + e.message);
+    }
+}
+
+
+// ---------- UI Logic ----------
+document.getElementById('bookmarklet').href = 'javascript:(' + thmExporter.toString() + ')();';
+
+document.getElementById('pasteBtn').addEventListener('click', async () => {
+    try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('output').value = text;
+        document.getElementById('output').style.display = 'block';
+        document.getElementById('copyBtn').style.display = 'inline-block';
+        document.getElementById('clearBtn').style.display = 'inline-block';
+        document.getElementById('emptyState').style.display = 'none';
+    } catch (e) { alert('Could not paste: ' + e.message); }
+});
+
+document.getElementById('copyBtn').addEventListener('click', () => {
+    const ta = document.getElementById('output');
+    ta.select();
+    document.execCommand('copy');
+    alert('JSON copied to clipboard!');
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('output').value = '';
+    document.getElementById('output').style.display = 'none';
+    document.getElementById('copyBtn').style.display = 'none';
+    document.getElementById('clearBtn').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+});
+</script>
+</body>
+</html>
