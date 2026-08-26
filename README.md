@@ -4,7 +4,7 @@ A responsive, single-page cybersecurity portfolio for **Sourabh Negi**, focused 
 
 ## Live Portfolio
 
-This repository contains the source for the portfolio. After GitHub Pages is enabled, add the deployed URL here.
+Live Link of Portfolio: https://slasher-11.github.io/portfolio/
 
 ## About
 
@@ -49,13 +49,13 @@ No frameworks, package manager, or build process are required.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/SlashEr-11/<repository-name>.git
+   git clone https://github.com/SlashEr-11/portfolio.git
    ```
 
 2. Open the project directory:
 
    ```bash
-   cd <repository-name>
+   cd portfolio
    ```
 
 3. Open `sourabh_portfolio.html` in a web browser.
