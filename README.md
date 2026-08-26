@@ -7,7 +7,6 @@ My personal portfolio website showcasing my projects, skills, and TryHackMe achi
 - Modern, responsive design
 - Dark/Light theme toggle
 - Real-time TryHackMe badge integration
-- GitHub-style contribution chart for TryHackMe activity
 - Project showcase
 - Skills and certifications
 
@@ -17,10 +16,7 @@ Visit: https://SlashEr-11.github.io/portfolio/modern.html
 
 ## 📊 TryHackMe Stats
 
-This portfolio features real-time integration with TryHackMe:
-- Live badge showing current rank
-- Activity contribution chart
-- Detailed statistics
+This portfolio includes a live TryHackMe badge and a link to the profile.
 
 ## 🛠️ Technologies Used
 
@@ -31,8 +27,8 @@ This portfolio features real-time integration with TryHackMe:
 
 ## 📝 How to Update
 
-1. Update your TryHackMe stats in `tryhackme-data.json`
-2. Commit and push changes:
+1. Make your portfolio changes.
+2. Commit and push them:
    ```bash
    git add .
    git commit -m "Update TryHackMe stats"
