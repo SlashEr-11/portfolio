@@ -6,9 +6,9 @@
 <meta name="description" content="Sourabh Negi — SOC Analyst & VAPT Specialist portfolio">
 <title>Sourabh Negi | SOC Analyst & VAPT Specialist</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+<link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap)" rel="stylesheet">
 
 <style>
 :root{
@@ -170,6 +170,7 @@ section h2{font-size:clamp(38px,5vw,60px);line-height:1;letter-spacing:-3px;marg
 .skill-card p{color:var(--muted);font-size:13px;line-height:1.8}
 
 /* EXPERIENCE */
+.experience-wrapper{display:flex;flex-direction:column;gap:20px;}
 .experience-card{background:var(--card);border:1px solid var(--border);padding:32px;transition:.25s}
 .experience-card:hover{border-color:var(--border2)}
 .experience-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:5px}
@@ -298,6 +299,7 @@ footer{
             <span class="tag">Threat Detection</span>
             <span class="tag">SIEM / Wazuh</span>
             <span class="tag">Penetration Testing</span>
+            <span class="tag">LLM Security</span>
         </div>
 
         <p class="hero-description">
@@ -345,7 +347,7 @@ footer{
     <div class="about-grid">
         <div class="about-text">
             <p>
-                I'm an undergraduate specializing in Cybersecurity,
+                I'm a recent Computer Science graduate specializing in Cybersecurity,
                 focused on the practical side of security: analyzing
                 security events, investigating alerts, performing
                 network reconnaissance and testing applications
@@ -383,8 +385,8 @@ footer{
             <h3>SOC &amp; SIEM</h3>
             <p>
                 Wazuh, SIEM, Log Analysis, Security Monitoring,
-                Alert Triage, Incident Investigation, IOC Analysis
-                and MITRE ATT&amp;CK.
+                Alert Triage, Incident Investigation, IOC Analysis,
+                MITRE ATT&amp;CK, and LLM &amp; AI-agent security.
             </p>
         </div>
 
@@ -392,8 +394,7 @@ footer{
             <span class="skill-number">02</span>
             <h3>VAPT &amp; Security Tools</h3>
             <p>
-                Kali Linux, Nmap, Wireshark, Burp Suite,
-                Metasploit, OWASP and VirtualBox.
+                Kali Linux, Nmap, Wireshark, Burp Suite, Nessus, Metasploit, Hashcat, John The Ripper, SqlMap, Hydra, and VirtualBox.
             </p>
         </div>
 
@@ -401,7 +402,7 @@ footer{
             <span class="skill-number">03</span>
             <h3>Programming &amp; Systems</h3>
             <p>
-                Python, Bash, C++, Linux Administration,
+                Python, Bash, C++, Git, GitHub, Linux Administration,
                 SSH and TCP/IP fundamentals.
             </p>
         </div>
@@ -412,21 +413,40 @@ footer{
     <div class="section-number">03 // EXPERIENCE</div>
     <h2>Field experience</h2>
 
-    <div class="experience-card">
-        <div class="experience-top">
-            <h3>Project Intern — Ethical Hacking &amp; Penetration Testing</h3>
-            <span class="date">MAY – JUNE 2025</span>
+    <div class="experience-wrapper">
+        <div class="experience-card">
+            <div class="experience-top">
+                <h3>SOC Analyst Intern</h3>
+                <span class="date">JULY 2026 – PRESENT</span>
+            </div>
+
+            <p class="company">
+                Trois Cyber (Remote)
+            </p>
+
+            <ul class="experience-list">
+                <li>Monitor real-time SIEM security events across enterprise environments, conducting initial alert triage and escalating high-fidelity incidents to senior engineering staff.</li>
+                <li>Investigate security alerts through multi-source log correlation, extracting actionable IOCs and mapping adversary techniques to the MITRE ATT&amp;CK matrix.</li>
+                <li>Develop and tune custom SIEM detection rules targeting emerging threat vectors, significantly improving threat-hunting accuracy and reducing baseline false-positive rates.</li>
+            </ul>
         </div>
 
-        <p class="company">
-            C-DAC (Centre for Development of Advanced Computing), Noida
-        </p>
+        <div class="experience-card">
+            <div class="experience-top">
+                <h3>Project Intern — Ethical Hacking &amp; Penetration Testing</h3>
+                <span class="date">MAY 2025 – AUGUST 2025</span>
+            </div>
 
-        <ul class="experience-list">
-            <li>Analyzed live network traffic with Wireshark to detect anomalous patterns and simulate real-world attack scenarios.</li>
-            <li>Executed penetration tests and vulnerability scans using Kali Linux, Metasploit, Nmap and Burp Suite.</li>
-            <li>Delivered security improvement recommendations grounded in cyber law and risk-mitigation practices.</li>
-        </ul>
+            <p class="company">
+                C-DAC (Centre for Development of Advanced Computing), Noida
+            </p>
+
+            <ul class="experience-list">
+                <li>Analyzed live network traffic with Wireshark to detect anomalous patterns and simulate real-world attack scenarios.</li>
+                <li>Executed penetration tests and vulnerability scans using Kali Linux, Metasploit, Nmap and Burp Suite.</li>
+                <li>Delivered security improvement recommendations grounded in cyber law and risk-mitigation practices.</li>
+            </ul>
+        </div>
     </div>
 </section>
 
@@ -460,7 +480,7 @@ footer{
         </ul>
 
         <a class="project-link"
-           href="https://github.com/SlashEr-11/siem-detection-lab"
+           href="[https://github.com/SlashEr-11/siem-detection-lab](https://github.com/SlashEr-11/siem-detection-lab)"
            target="_blank" rel="noopener noreferrer">
             View on GitHub →
         </a>
@@ -480,7 +500,7 @@ footer{
             </p>
         </div>
 
-        <a href="https://tryhackme.com/p/sourabhnegi9837"
+        <a href="[https://tryhackme.com/p/sourabhnegi9837](https://tryhackme.com/p/sourabhnegi9837)"
            target="_blank" rel="noopener noreferrer"
            class="btn btn-outline">
             View Profile →
@@ -509,12 +529,13 @@ footer{
 
 <section id="achievements">
     <div class="section-number">06 // ACHIEVEMENTS</div>
-    <h2>Security milestones</h2>
+    <h2>Certifications &amp; Achievements</h2>
 
     <ul class="achievement-list">
-        <li>Top 2% on TryHackMe through sustained hands-on cybersecurity practice.</li>
-        <li>C-DAC Internship Completion Certificate — Ethical Hacking &amp; Penetration Testing, June 2025.</li>
-        <li>Active participant in cybersecurity labs, CTF-style challenges and practical security exercises.</li>
+        <li><strong>Certified LLM Security Expert (CLLMSE)</strong> — Red Team Leaders (October 2026).</li>
+        <li>Ranked in top 2% of TryHackMe learners globally through sustained hands-on practice.</li>
+        <li>C-DAC Internship Completion Certificate — Ethical Hacking &amp; Penetration Testing, August 2025.</li>
+        <li>Actively participate in cybersecurity communities and CTF-style challenges.</li>
     </ul>
 </section>
 
@@ -525,12 +546,12 @@ footer{
     <div class="education-grid">
         <div class="education-card">
             <h3>Bachelor of Technology (B.Tech), Computer Science</h3>
-            <p>Uttarakhand Technical University, Dehradun<br>Expected July 2026</p>
+            <p>Uttarakhand Technical University, Dehradun<br>July 2023 – August 2026</p>
         </div>
 
         <div class="education-card">
             <h3>Diploma, Computer Science</h3>
-            <p>Government Polytechnic College, Kashipur<br>July 2023</p>
+            <p>Government Polytechnic College, Kashipur, Uttarakhand<br>July 2020 – July 2023</p>
         </div>
     </div>
 </section>
@@ -546,9 +567,9 @@ footer{
 
         <div class="contact-links">
             <a href="mailto:sourabhnegi6397@gmail.com" class="btn btn-primary">Email Me →</a>
-            <a href="https://github.com/SlashEr-11" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub ↗</a>
-            <a href="https://linkedin.com/in/sourabh-cybersec" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn ↗</a>
-            <a href="https://tryhackme.com/p/sourabhnegi9837" target="_blank" rel="noopener noreferrer" class="btn btn-outline">TryHackMe ↗</a>
+            <a href="[https://github.com/SlashEr-11](https://github.com/SlashEr-11)" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub ↗</a>
+            <a href="[https://linkedin.com/in/sourabh-cybersec](https://linkedin.com/in/sourabh-cybersec)" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn ↗</a>
+            <a href="[https://tryhackme.com/p/sourabhnegi9837](https://tryhackme.com/p/sourabhnegi9837)" target="_blank" rel="noopener noreferrer" class="btn btn-outline">TryHackMe ↗</a>
         </div>
     </div>
 </section>
@@ -586,15 +607,18 @@ const terminalData = [
     {
         command: "tools",
         output: [
-            ["Wazuh • Nmap • Wireshark", "output-blue"],
-            ["Burp Suite • Metasploit • Kali Linux", "output-blue"]
+            ["Wazuh • Nmap • Wireshark • Nessus", "output-blue"],
+            ["Burp Suite • Metasploit • SqlMap • Hashcat", "output-blue"],
+            ["LLM Security • Git • Python", "output-blue"]
         ]
     },
     {
         command: "experience",
         output: [
+            ["Trois Cyber — SOC Analyst Intern", "output-highlight"],
+            ["July 2026 – Present", "output-warning"],
             ["C-DAC — Ethical Hacking & Penetration Testing", "output-line"],
-            ["May – June 2025", "output-warning"]
+            ["May 2025 – August 2025", "output-warning"]
         ]
     },
     {
@@ -609,7 +633,7 @@ const terminalData = [
         output: [
             ["[✓] SECURITY OPERATIONS ONLINE", "output-highlight"],
             ["[✓] THREAT DETECTION ACTIVE", "output-highlight"],
-            ["[✓] SIEM LAB READY", "output-highlight"],
+            ["[✓] LLM SECURITY PROTOCOLS ENABLED", "output-highlight"],
             ["[✓] VAPT ENVIRONMENT READY", "output-highlight"]
         ]
     }
